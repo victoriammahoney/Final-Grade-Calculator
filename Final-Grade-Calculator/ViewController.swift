@@ -35,19 +35,37 @@ class ViewController: UIViewController {
     @IBAction func calculateButtonAction(_ sender: Any) {
         
         var currentGrade = currentTextField.text ?? ""
-        var c = Int(currentGrade) ?? 90
+        var c = Float(currentGrade) ?? 90
         
         var desiredGrade = desiredTextField.text ?? ""
-        var d = Int(desiredGrade) ?? 90
+        var d = Float(desiredGrade) ?? 90
         
         var finalExam = finalExamTextField.text ?? ""
-        var f = Int(finalExam) ?? 90
+        var f = Float(finalExam) ?? 90
         
-        var finalGrade = d - (100 - f) * c / f
+        var weightDecimal = f/100
+        
+        var difference = 1 - weightDecimal
+        
+        var valueOfAssignments = difference * c
+        
+        var difference2 = d - valueOfAssignments
+        
+        var nearFinal = difference2 / f
+        
+        var finalGrade = nearFinal * 100
+        
+        if finalGrade > 100 {
+            view.backgroundColor = UIColor.red
+        }
+        else {
+            view.backgroundColor = UIColor.green
+        }
         
         resultLabel.text = "You need to score " + "\(finalGrade)" + "% on the Final Exam"
         
         resultLabel.isHidden = false
+        
     }
     
     
